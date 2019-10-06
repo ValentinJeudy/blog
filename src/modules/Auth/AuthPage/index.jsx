@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
+import LoginForm from '../LoginForm'
 
-const AuthPage = (props) => {
-	const [] = useState()
 
+const AuthPage = () => {
 	return(
 		<div className="auth-page">
 			<h2>Sign up</h2>
-			<form action="">
-
-			</form>
+			<LoginForm />
 		</div>
 	)
 }
