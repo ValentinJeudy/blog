@@ -1,51 +1,31 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import {
+	AppBar,
+	Button,
+	Toolbar,
+	Typography } from '@material-ui/core'
 
 const Header = () => {
 	return (
-		<div style={headerStyle} className="header">
-			<Link to="/">
-				<h2 style={titleStyle}>Blog</h2>
-			</Link>
-			<ul style={menuStyle} className="menu">
-				<li
-					style={itemStyle}
-					className="menu-item"
-				>
-					<Link style={{ color: '#fff'}} to='/contact'>
-              Contact
-					</Link>
-				</li>
-			</ul>
-		</div>
+		<AppBar position="static">
+			<Toolbar style={ToolbarStyle}>
+				<Link to="/">
+					<Typography variant="h5">
+						Home
+					</Typography>
+				</Link>
+				<Link to="/login">
+					<Button color="inherit">Login</Button>
+				</Link>
+			</Toolbar>
+		</AppBar>
 	)
 }
 
 // Styles
-const headerStyle = {
-	position: 'relative',
-	height: '2rem',
-	lineHeight: '2rem',
-	padding: '1rem .5rem',
-	backgroundColor: '#000',
-	color: '#fff'
-}
-
-const titleStyle = {
-	display: 'inline',
-	color: '#fff'
-}
-
-const menuStyle = {
-	float: 'right',
-	color: '#fff'
-}
-
-const itemStyle = {
-	display: 'inline-block',
-	margin: '0 1rem',
-	cursor: 'pointer',
-	color: '#fff'
+const ToolbarStyle = {
+	justifyContent: 'space-between'
 }
 
 export default Header
