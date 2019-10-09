@@ -6,7 +6,7 @@ const routes = require('./routes')
 const start = ({
   config,
   database,
-  logger,
+  log,
   services
 }) => {
   const { corsConfig, serverConfig } = config
@@ -20,13 +20,13 @@ const start = ({
   app.use(routes.map((route) => {
     return route({
       services,
-      logger
+      log
     })
   }))
 
   // Listening
   const server = app.listen(serverConfig.port, () => {
-    logger.info(`datastream listening on port ${serverConfig.port}`)
+    log.info(`server listening on port ${serverConfig.port}`)
   })
 
   // Avoid dropping requests with 502s when restarting workers
