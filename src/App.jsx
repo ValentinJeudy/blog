@@ -4,6 +4,7 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 
 import Header from './modules/Common/Header'
 import AuthPage from './modules/Auth/AuthPage'
+import AdminPage from './modules/Admin/AdminPage'
 import './App.scss'
 
 const theme = createMuiTheme({
@@ -25,6 +26,9 @@ const App = () => {
 				<Route
 					path="/login"
 					component={AuthPage} />
+				<Route
+					path="/admin"
+					component={AdminPage} />
 			</Router>
 		</MuiThemeProvider>
 	)
