@@ -1,14 +1,14 @@
+const Joi = require('@hapi/joi')
 
-module.exports = {
-  add () {
+const UserSchema = Joi.object({
+  username: Joi.string()
+    .alphanum()
+    .min(3)
+    .max(30)
+    .required(),
 
-  },
+  password: Joi.string()
+    .required()
+})
 
-  update () {
-
-  },
-
-  remove () {
-
-  }
-}
+module.exports = UserSchema
