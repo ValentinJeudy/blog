@@ -14,6 +14,9 @@ module.exports = {
 	corsConfig: {
 		origin: '*',
 		optionsSuccessStatus: 200,
-		allowedHeaders: ['X-RR-Token', 'Content-Type', 'Accept'],
+		// allowedHeaders: ['X-RR-Token', 'Content-Type', 'Accept'],
 	},
+	jwtConfig: {
+		secret: 'trytocrackmykeybitch'
+	}
 }
