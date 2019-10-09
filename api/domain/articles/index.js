@@ -1,14 +1,15 @@
+const Joi = require('@hapi/joi')
 
-module.exports = {
-  add () {
+const ArticleSchema = Joi.object({
+  title: Joi.string()
+    .required(),
 
-  },
+  content: Joi.string()
+    .required(),
 
-  update () {
+  tags: Joi.array()
+    .required()
+    .max(10)
+})
 
-  },
-
-  remove () {
-
-  }
-}
+module.exports = ArticleSchema
