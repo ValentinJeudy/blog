@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { TextField, Button } from '@material-ui/core'
+import { post } from '../../../lib/network'
 
 // styles
 // const textFieldStyle = {
@@ -12,24 +14,40 @@ const buttonStyle = {
 }
 
 const LoginForm = (props) => {
+	const history = useHistory()
 	const [form, setForm] = useState({
 		username: {
-			field: '',
+			field: 'Val',
 			error : false,
 			msg: ''
 		},
 		password: {
-			field: '',
+			field: 'Shred4618',
 			error: false,
 			msg: ''
 		}
 	})
 
-	const authUser = (e) => {
-
+	const authUser = async () => {
 		const isFormValid = validateFields()
 
-		console.log('isFormValid ===> ', isFormValid)
+		if (isFormValid) {
+			const data = {
+				username: form.username.field,
+				password: form.password.field
+			}
+
+			const res = await post('api/login', data)
+
+			if (res.status === 200) {
+				const date = new Date()
+				date.setDate(date.getDate() + 1)
+				document.cookie = `blog-token=${res.data}; expires=${date}.`
+				history.push('/admin')
+				console.log('this ===> ', props)
+			}
+
+		}
 	}
 
 	const handleChange = (name) => ({ target: { value } }) => {
