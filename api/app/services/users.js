@@ -56,6 +56,12 @@ module.exports = ({
     return isPasswordValid
   }
 
+  const verify = (token) => {
+    const isTokenValid = jwt.verify(token)
+
+    return !!isTokenValid
+  }
+
   const remove = () => {
     // const user = await repository.deleteOne({})
   }
@@ -64,6 +70,7 @@ module.exports = ({
     find,
     create,
     login,
+    verify,
     remove
   }
 }

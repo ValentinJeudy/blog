@@ -33,19 +33,36 @@ module.exports = ({
     try {
       const data = req.body
 
-      console.log('=============> HERE <================')
-
       const token = await usersService.login(data)
-      console.log('token ===> ', token)
 
       if (token) {
         res.status(200).send(token)
       } else {
-        console.log('=============> Auth failed <================')
         res.status(400).send('Auth failed')
       }
     } catch (err) {
       log.error(err)
+    }
+  })
+
+  router.get('/api/users/verify', (req, res, next) => {
+    try {
+      const token = req.headers &&
+        req.headers.authorization &&
+        req.headers.authorization.replace('Bearer ', '')
+
+      if (token && token.length) {
+        const verifiedUser = usersService.verify(token)
+
+        if (verifiedUser) {
+          res.status(200).send({ token })
+        }
+      } else {
+        res.status(401).send()
+      }
+    } catch (err) {
+      log.error(err)
+      res.status(401).send(err)
     }
   })
 
