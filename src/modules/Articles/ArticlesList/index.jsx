@@ -1,38 +1,30 @@
-import React, { useState } from 'react'
-import {
-	Card,
-	CardHeader,
-	CardContent,
-	CardActions,
-	CardMedia,
-	Typography
-} from '@material-ui/core'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import React, { useContext } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+
+import { UserContext } from '../../Common/UserContext'
+import AddArticle from '../AddArticle'
+import ArticleCard from '../ArticleCard'
 
 // Styles
 const useStyles = makeStyles({
-	card: {
+	ul: {
+		display: 'flex',
+		alignItems: 'top'
+	},
+	li: {
 		maxWidth: 345,
+		margin: '1rem'
 	}
 })
 
-const ArticlesList = (props) => {
+const ArticlesList = () => {
+	const [user] = useContext(UserContext)
 	const classes = useStyles()
 
 	return(
-		<ul className="articlesList">
-			<li>
-				<Card className={classes.card}>
-					<CardHeader>
-						My article
-					</CardHeader>
-					<CardContent>
-						<Typography>
-							My article descriptions
-						</Typography>
-					</CardContent>
-				</Card>
-			</li>
+		<ul className={`articlesList ${classes.ul}`}>
+			{ user.logged && <AddArticle classes={classes} /> }
+			<ArticleCard classes={classes} />
 		</ul>
 	)
 }

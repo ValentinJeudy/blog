@@ -20,6 +20,7 @@ export const get = async (route, params) => {
 			`Error during get request on API:
       ${err}`
 		)
+		return err.response
 	}
 }
 
@@ -41,6 +42,7 @@ export const put = async (route, data) => {
 			`Error trying to put request on API:
       ${err}`
 		)
+		return err.response
 	}
 }
 
@@ -51,8 +53,6 @@ export const post = async (route, data = {}) => {
 	const headers = {
 		...token ? { 'Authorization': `Bearer ${token}` } : {}
 	}
-
-	console.log('`${apiConfig.url}/${route}` ===> ', `${apiConfig.url}/${route}`)
 
 	try {
 		return await axios({

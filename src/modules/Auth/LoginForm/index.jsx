@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { TextField, Button } from '@material-ui/core'
 import { post } from '../../../lib/network'
+
+import { UserContext } from '../../Common/UserContext'
 
 // styles
 // const textFieldStyle = {
@@ -14,6 +16,8 @@ const buttonStyle = {
 }
 
 const LoginForm = (props) => {
+	const [user, setUser] = useContext(UserContext)
+
 	const history = useHistory()
 	const [form, setForm] = useState({
 		username: {
@@ -37,16 +41,18 @@ const LoginForm = (props) => {
 				password: form.password.field
 			}
 
-			const res = await post('api/login', data)
+			const res = await post('login', data)
 
 			if (res.status === 200) {
 				const date = new Date()
 				date.setDate(date.getDate() + 1)
 				document.cookie = `blog-token=${res.data}; expires=${date}.`
-				history.push('/admin')
-				console.log('this ===> ', props)
+				setUser({
+					logged: true,
+					token: res.data
+				})
+				history.push('/')
 			}
-
 		}
 	}
 
@@ -90,6 +96,7 @@ const LoginForm = (props) => {
 
 	return(
 		<form>
+			<h1>{ user.token }</h1>
 			<TextField
 				label="Username"
 				type="text"
