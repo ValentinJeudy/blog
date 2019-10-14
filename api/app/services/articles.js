@@ -6,10 +6,18 @@ module.exports = ({
   log
 }) => {
   const find = async () => {
-    const article = await repository.find()
+    const articles = await repository.find()
 
-    log.info(article)
-    return article
+    if (articles && articles.length) {
+      return {
+        success: true,
+        articles
+      }
+    }
+    return {
+      success: false,
+      errors: ['No articles found']
+    }
   }
 
   const findOne = async (id) => {
@@ -22,15 +30,48 @@ module.exports = ({
   const create = async (data) => {
     const validation = articlesEntity.validate(data)
 
-    const article = await repository.insertOne(data)
+    if (validation.error) {
+      return {
+        success: false,
+        errors: validation.error.details.map((error) => error.message)
+      }
+    }
 
-    log.info(article)
+    const res = await repository.insertOne(data)
 
-    return article
+    if (res.result.ok) {
+      return {
+        success: true,
+        article: {
+          _id: res.insertedId,
+          ...data
+        }
+      }
+    } else {
+      return {
+        success: false,
+        errors: res.errmsg
+      }
+    }
   }
 
-  const update = async (data) => {
+  const update = async (article) => {
+    const validation = articlesEntity.validate(article)
 
+    if (validation.error) {
+      return {
+        success: false,
+        errors: validation.error.details.map((error) => error.message)
+      }
+    }
+
+    const _id = article._id
+
+    delete article._id
+
+    const res = await repository.update(_id, article)
+
+    return res.value ? { success: true, _id } : { success: false, errors: res.errmsg }
   }
 
   const remove = () => {
