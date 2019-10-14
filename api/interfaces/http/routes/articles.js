@@ -1,4 +1,18 @@
 const express = require('express')
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'src/uploads')
+  },
+  filename: (req, file, cb) => {
+    const fileName = `${new Date().toISOString()}-${file.originalname}`
+
+    cb(null, fileName)
+  }
+})
+
+const upload = multer({ storage })
 
 module.exports = ({
   services: {
@@ -8,12 +22,15 @@ module.exports = ({
 }) => {
   const router = new express.Router()
 
+  // Find Articles
   router.get('/api/articles', async (req, res, next) => {
     try {
-      const articles = await articlesService.find()
+      const response = await articlesService.find()
 
-      if (articles && articles.length) {
-        res.status(200).send({ articles })
+      if (response && response.success) {
+        res.status(200).send(response)
+      } else {
+        res.status(400).send(response)
       }
     } catch (err) {
       log.error(err)
@@ -21,18 +38,45 @@ module.exports = ({
     }
   })
 
+  // Create Article
   router.post('/api/articles', async (req, res, next) => {
     const data = req.body
 
     try {
-      const user = await articlesService.create(data)
+      const response = await articlesService.create(data)
 
-      log.info('User created :   ', user)
-
-      if (user) {
-
+      if (response.success) {
+        log.info('Article has been created : ', response.article)
+        res.status(201).send(response)
+      } else {
+        res.status(400).send(response)
       }
-      res.status(201).send('User has been successfully created : ', user.username)
+    } catch (err) {
+      log.error(err)
+      res.status(400).send(err)
+    }
+  })
+
+  // Update Article
+  router.put('/api/articles', upload.single('image'), async (req, res, next) => {
+    try {
+      const { article } = req.body
+      const data = req.file
+        ? JSON.parse(article)
+        : article
+
+      if (req.file) {
+        article.imgPath = req.file.path
+      }
+
+      const response = await articlesService.update(data)
+
+      if (response.success) {
+        log.info(`Article ${response._id} has beend updated`)
+        res.status(200).send(response)
+      } else {
+        res.status(400).send(response)
+      }
     } catch (err) {
       log.error(err)
       res.status(400).send(err)
