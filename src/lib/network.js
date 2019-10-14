@@ -24,9 +24,10 @@ export const get = async (route, params) => {
 	}
 }
 
-export const put = async (route, data) => {
+export const put = async (route, data, headersParams = {}) => {
 	const token = getToken()
 	const headers = {
+		...headersParams,
 		...token ? { 'Authorization': `Bearer ${token}` } : {}
 	}
 
@@ -46,11 +47,11 @@ export const put = async (route, data) => {
 	}
 }
 
-export const post = async (route, data = {}) => {
+export const post = async (route, data = {}, headersParams = {}) => {
 	const token = getToken()
 
-	console.log('token in post ===> ', token)
 	const headers = {
+		...headersParams,
 		...token ? { 'Authorization': `Bearer ${token}` } : {}
 	}
 
