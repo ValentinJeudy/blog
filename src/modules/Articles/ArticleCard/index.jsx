@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
 	Card,
@@ -9,27 +10,31 @@ import {
 	Typography
 } from '@material-ui/core'
 
-const ArticleCard = ({ classes }) => {
+const ArticleCard = ({ article, classes }) => {
 
 	return(
 		<li className={classes.li}>
-			<Card >
-				<CardHeader>
-					<Typography>
-						My article
-					</Typography>
-				</CardHeader>
-				<CardContent>
-					<Typography>
-						My article descriptions
-					</Typography>
-				</CardContent>
-			</Card>
+			<Link to={{
+				pathname: `/articles/${article._id}`,
+				state: {
+					article
+				}}
+			}>
+				<Card >
+					<CardHeader title={ article.title || 'No Title' } />
+					<CardContent>
+						<Typography>
+							{ article.content || 'No Content'}
+						</Typography>
+					</CardContent>
+				</Card>
+			</Link>
 		</li>
 	)
 }
 
 ArticleCard.propTypes = {
+	article: PropTypes.object,
 	classes: PropTypes.object
 }
 

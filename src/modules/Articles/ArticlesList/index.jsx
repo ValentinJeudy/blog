@@ -1,30 +1,46 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { UserContext } from '../../Common/UserContext'
 import AddArticle from '../AddArticle'
 import ArticleCard from '../ArticleCard'
+import { get } from '../../../lib/network'
 
 // Styles
 const useStyles = makeStyles({
 	ul: {
 		display: 'flex',
-		alignItems: 'top'
+		alignItems: 'top',
+		flexWrap: 'wrap'
 	},
 	li: {
-		maxWidth: 345,
+		width: 345,
 		margin: '1rem'
 	}
 })
 
 const ArticlesList = () => {
 	const [user] = useContext(UserContext)
+	const [articles, setArticles] = useState([])
 	const classes = useStyles()
+
+	const getArticles = async () => {
+		const { data } = await get('articles')
+
+		if (data.success) {
+			setArticles([...data.articles])
+		}
+	}
+
+	useEffect(() => {
+		getArticles()
+	}, [])
+
 
 	return(
 		<ul className={`articlesList ${classes.ul}`}>
 			{ user.logged && <AddArticle classes={classes} /> }
-			<ArticleCard classes={classes} />
+			{ articles.map((article) => <ArticleCard key={article._id} article={article} classes={classes} />) }
 		</ul>
 	)
 }
