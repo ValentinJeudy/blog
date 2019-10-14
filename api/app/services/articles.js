@@ -71,7 +71,7 @@ module.exports = ({
 
     const res = await repository.update(_id, article)
 
-    return res.value ? { success: true, _id } : { success: false, errors: res.errmsg }
+    return res.value ? { success: true, article: res.value } : { success: false, errors: res.errmsg }
   }
 
   const remove = () => {

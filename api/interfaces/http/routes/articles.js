@@ -6,7 +6,8 @@ const storage = multer.diskStorage({
     cb(null, 'src/uploads')
   },
   filename: (req, file, cb) => {
-    const fileName = `${new Date().toISOString()}-${file.originalname}`
+    // const fileName = `${new Date().toISOString()}-${fie.originalname}`
+    const fileName = `${file.originalname}`
 
     cb(null, fileName)
   }
@@ -66,13 +67,13 @@ module.exports = ({
         : article
 
       if (req.file) {
-        article.imgPath = req.file.path
+        data.imgName = req.file.filename
       }
 
       const response = await articlesService.update(data)
 
       if (response.success) {
-        log.info(`Article ${response._id} has beend updated`)
+        log.info(`Article ${response.article._id} has been updated`)
         res.status(200).send(response)
       } else {
         res.status(400).send(response)

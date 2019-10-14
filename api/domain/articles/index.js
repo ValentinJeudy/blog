@@ -8,7 +8,7 @@ const ArticleSchema = Joi.object({
     .allow('')
     .required(),
 
-  imgPath: Joi.string()
+  imgName: Joi.string()
     .allow('')
     .required(),
 
