@@ -11,36 +11,39 @@ import ArticlePage from './modules/Articles/ArticlePage'
 import { UserProvider } from './modules/Common/UserContext'
 
 const theme = createMuiTheme({
-	palette: {
-		primary: {
-			main: '#1a237e',
-		},
-		secondary: {
-			main: '#00838f',
-		},
-	},
+  palette: {
+    primary: {
+      main: '#1a237e'
+    },
+    secondary: {
+      main: '#00838f'
+    }
+  }
 })
 
 const App = () => {
-	return (
-		<MuiThemeProvider theme={theme}>
-			<UserProvider>
-				<Router>
-					<Header />
-					<Route
-						path="/"
-						exact
-						component={HomePage} />
-					<Route
-						path="/login"
-						component={AuthPage} />
-					<Route
-						path="/articles/:id"
-						component={ArticlePage} />
-				</Router>
-			</UserProvider>
-		</MuiThemeProvider>
-	)
+  return (
+    <MuiThemeProvider theme={theme}>
+      <UserProvider>
+        <Router>
+          <Header />
+          <Route
+            path='/'
+            exact
+            component={HomePage}
+          />
+          <Route
+            path='/login'
+            component={AuthPage}
+          />
+          <Route
+            path='/articles/:id'
+            component={ArticlePage}
+          />
+        </Router>
+      </UserProvider>
+    </MuiThemeProvider>
+  )
 }
 
 export default App
