@@ -1,36 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-// import image from '../../../uploads/pool.jpg'
+// import LazyImage from 'src/modules/Common/LazyImage'
 
 const Article = ({ article, classes }) => {
-  const [imageStyle, setImageStyle] = useState(null)
-
-  const imgBlockStyle = {
-    // backgroundImage: `url("../../../uploads/${article.imgName}")`,
-    height: '5rem'
-  }
+  const [image, setImage] = useState('')
 
   useEffect(() => {
-    const importImage = async () => {
-      const { default: importedImage } = await import(`src/uploads/${article.imgName}`)
-
-      console.log('importedImage ===> ', importedImage)
-
-      setImageStyle({
-        backgroundImage: `url("${importedImage}")`,
-        height: '5rem'
-      })
+    const loadImage = () => {
+      if (article.imgName) {
+        import(/* webpackChunkName: "image" */ `../../../../uploads/${article.imgName}`).then((img) => {
+          setImage(img.default)
+        })
+      }
     }
 
-    importImage()
-  }, [article.imgName, setImageStyle])
+    loadImage()
+  }, [article.imgName, image, setImage])
 
   return (
     <div className={classes.block}>
       <h3>{article.title || 'No Title'}</h3>
-      <div style={imageStyle} />
       {article.imgName}
-      {/* {article.imgName && <img src={import(`src/uploads/${article.imgName}`)} />} */}
+      {image && <img src={image} />}
+      {/* {image.length && <LazyImage image={image} />} */}
       <div dangerouslySetInnerHTML={{ __html: article.content }} />
     </div>
   )
