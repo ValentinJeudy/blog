@@ -11,7 +11,7 @@ const repository = (db) => {
     update: (_id, article) => UsersDb.findOneAndUpdate(
       { _id: ObjectID(_id) },
       { $set: { ...article } },
-      { returnNewDocument: true })
+      { returnOriginal: false })
   }
 }
 
