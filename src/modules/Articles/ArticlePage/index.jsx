@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { get, put } from 'src/lib/network'
-import { UserContext } from 'src/modules/Common/UserContext'
+import { get, put } from '@/lib/network'
+import { UserContext } from '@/modules/Common/UserContext'
+import SnackBar from '@/modules/Common/SnackBar'
 import EditArticle from '../EditArticle'
 import Article from '../Article'
-import SnackBar from 'src/modules/Common/SnackBar'
 
 // Styles
 const useStyles = makeStyles({

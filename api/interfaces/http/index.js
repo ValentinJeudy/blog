@@ -14,6 +14,7 @@ const start = ({
   app.disable('x-powered-by')
   app.use(express.json())
   app.use(express.urlencoded({ extended: false }))
+  app.use(express.static('api/public'))
   app.use(helmet())
   app.use(cors(corsConfig))
 
