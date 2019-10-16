@@ -8,41 +8,40 @@ import { get } from '../../../lib/network'
 
 // Styles
 const useStyles = makeStyles({
-	ul: {
-		display: 'flex',
-		alignItems: 'top',
-		flexWrap: 'wrap'
-	},
-	li: {
-		width: 345,
-		margin: '1rem'
-	}
+  ul: {
+    display: 'flex',
+    alignItems: 'top',
+    flexWrap: 'wrap'
+  },
+  li: {
+    width: 345,
+    margin: '1rem'
+  }
 })
 
 const ArticlesList = () => {
-	const [user] = useContext(UserContext)
-	const [articles, setArticles] = useState([])
-	const classes = useStyles()
+  const [user] = useContext(UserContext)
+  const [articles, setArticles] = useState([])
+  const classes = useStyles()
 
-	const getArticles = async () => {
-		const { data } = await get('articles')
+  const getArticles = async () => {
+    const { data } = await get('api/articles')
 
-		if (data.success) {
-			setArticles([...data.articles])
-		}
-	}
+    if (data.success) {
+      setArticles([...data.articles])
+    }
+  }
 
-	useEffect(() => {
-		getArticles()
-	}, [])
+  useEffect(() => {
+    getArticles()
+  }, [])
 
-
-	return(
-		<ul className={`articlesList ${classes.ul}`}>
-			{ user.logged && <AddArticle classes={classes} /> }
-			{ articles.map((article) => <ArticleCard key={article._id} article={article} classes={classes} />) }
-		</ul>
-	)
+  return (
+    <ul className={`articlesList ${classes.ul}`}>
+      {user.logged && <AddArticle classes={classes} />}
+      {articles.map((article) => <ArticleCard key={article._id} article={article} classes={classes} />)}
+    </ul>
+  )
 }
 
 export default ArticlesList

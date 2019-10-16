@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { get, put } from '@/lib/network'
-import { UserContext } from '@/modules/Common/UserContext'
-import SnackBar from '@/modules/Common/SnackBar'
+import { get, put } from 'src/lib/network'
+import { UserContext } from 'src/modules/Common/UserContext'
+import SnackBar from 'src/modules/Common/SnackBar'
 import EditArticle from '../EditArticle'
 import Article from '../Article'
 
@@ -96,7 +96,7 @@ const ArticlePage = (props) => {
   // Executed when page rendered
   useEffect(() => {
     const validUserToken = async () => {
-      const res = await get('users/verify')
+      const res = await get('api/users/verify')
 
       if (res.status === 200) {
         setUser({

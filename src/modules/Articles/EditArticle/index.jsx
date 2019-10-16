@@ -4,44 +4,45 @@ import ReactQuill from 'react-quill'
 // import { makeStyles } from '@material-ui/core/styles'
 import { TextField, Button } from '@material-ui/core'
 
-import 'react-quill/dist/quill.snow.css'
-import './EditArticle.scss'
+// import 'react-quill/dist/quill.snow.css'
+// import './EditArticle.scss'
+import Editor from '../Editor'
 
 // Quill Editor Options
-const toolbarOptions = [
-  [{ header: [1, 2, 3, 4, 5, 6, false] }],
-  ['blockquote', 'code-block'],
-  ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+// const toolbarOptions = [
+//   [{ header: [1, 2, 3, 4, 5, 6, false] }],
+//   ['blockquote', 'code-block'],
+//   ['bold', 'italic', 'underline', 'strike'], // toggled buttons
 
-  [{ list: 'ordered' }, { list: 'bullet' }],
-  // [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-  [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
-  // [{ 'direction': 'rtl' }],                         // text direction
+//   [{ list: 'ordered' }, { list: 'bullet' }],
+//   // [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+//   [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+//   // [{ 'direction': 'rtl' }],                         // text direction
 
-  // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+//   // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
 
-  // [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-  [{ align: [] }]
+//   // [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+//   [{ align: [] }]
 
-  // ['clean']
-]
+//   // ['clean']
+// ]
 
-const editorModules = {
-  toolbar: toolbarOptions
-}
+// const editorModules = {
+//   toolbar: toolbarOptions
+// }
 
 const EditArticle = ({ article, setArticle, saveArticle, selectedFile, setSelectedFile, classes }) => {
   // const [selectedFile, setSelectedFile] = useState({})
 
-  const setContent = (updatedContent, delta, source) => {
-    if (source === 'user') {
-      const data = {
-        ...article,
-        content: updatedContent
-      }
-      setArticle(data)
-    }
-  }
+  // const setContent = (updatedContent, delta, source) => {
+  //   if (source === 'user') {
+  //     const data = {
+  //       ...article,
+  //       content: updatedContent
+  //     }
+  //     setArticle(data)
+  //   }
+  // }
 
   const setTitle = (e) => {
     setArticle({
@@ -100,11 +101,12 @@ const EditArticle = ({ article, setArticle, saveArticle, selectedFile, setSelect
         </div>
       </div>
       <div>
-        <ReactQuill
+        <Editor article={article} setArticle={setArticle} />
+        {/* <ReactQuill
           modules={editorModules}
           value={article.content}
           onChange={setContent}
-        />
+        /> */}
       </div>
     </div>
   )

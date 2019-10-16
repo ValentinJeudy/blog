@@ -1,32 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import { apiConfig } from 'src/lib/config'
 
 const Article = ({ article, classes }) => {
-  const [image, setImage] = useState('')
-
-  const imgStyle = {
-    maxWidth: '100%'
+  const imgContainerStyle = {
+    height: '10rem',
+    backgroundImage: `url("${apiConfig.url}/uploads/${article.imgName}")`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center'
   }
-
-  useEffect(() => {
-    const loadImage = () => {
-      // if (article.imgName) {
-      //   import(/* webpackChunkName: "image" */ `../../../../uploads/${article.imgName}`).then((img) => {
-      //     setImage(img.default)
-      //   })
-      // }
-      console.log('article.imgName ===> ', article.imgName)
-
-      console.log('image ===> ', image)
-    }
-
-    loadImage()
-  }, [article.imgName, image, setImage])
 
   return (
     <div className={classes.block}>
       <h3>{article.title || 'No Title'}</h3>
-      {article.imgName && <img src={`http://localhost:7000/uploads/${article.imgName}`} style={imgStyle} />}
+      <div style={imgContainerStyle} />
       <div dangerouslySetInnerHTML={{ __html: article.content }} />
     </div>
   )
