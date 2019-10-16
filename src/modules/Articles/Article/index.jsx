@@ -7,11 +7,14 @@ const Article = ({ article, classes }) => {
 
   useEffect(() => {
     const loadImage = () => {
-      if (article.imgName) {
-        import(/* webpackChunkName: "image" */ `../../../../uploads/${article.imgName}`).then((img) => {
-          setImage(img.default)
-        })
-      }
+      // if (article.imgName) {
+      //   import(/* webpackChunkName: "image" */ `../../../../uploads/${article.imgName}`).then((img) => {
+      //     setImage(img.default)
+      //   })
+      // }
+      console.log('article.imgName ===> ', article.imgName)
+
+      console.log('image ===> ', image)
     }
 
     loadImage()
@@ -21,7 +24,7 @@ const Article = ({ article, classes }) => {
     <div className={classes.block}>
       <h3>{article.title || 'No Title'}</h3>
       {article.imgName}
-      {image && <img src={image} />}
+      {article.imgName && <img src={`http://localhost:7000/uploads/${article.imgName}`} />}
       {/* {image.length && <LazyImage image={image} />} */}
       <div dangerouslySetInnerHTML={{ __html: article.content }} />
     </div>
