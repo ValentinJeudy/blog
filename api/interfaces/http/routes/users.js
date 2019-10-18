@@ -33,15 +33,18 @@ module.exports = ({
     try {
       const data = req.body
 
-      const token = await usersService.login(data)
+      const response = await usersService.login(data)
 
-      if (token) {
-        res.status(200).send(token)
+      if (response.success) {
+        res.status(200).send(response)
       } else {
-        res.status(400).send('Auth failed')
+        res.status(400).send(response)
       }
     } catch (err) {
-      log.error(err)
+      log.error({
+        success: false,
+        error: err.msg
+      })
     }
   })
 

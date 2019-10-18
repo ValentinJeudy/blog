@@ -50,10 +50,16 @@ module.exports = ({
     const isPasswordValid = await encrypt.comparePassword(password, user.hash, user.salt)
 
     if (isPasswordValid) {
-      return jwt.signin(user._id)
+      return {
+        success: true,
+        token: jwt.signin(user._id)
+      }
     }
 
-    return isPasswordValid
+    return {
+      success: false,
+      msg: 'Password isn\'t valid'
+    }
   }
 
   const verify = (token) => {

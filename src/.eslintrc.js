@@ -26,22 +26,23 @@ module.exports = {
     //   'react',
       // '@typescript-eslint'
 //   ],
-//   rules: {
-//       indent: [
-//           'error',
-//           'tab'
-//       ],
-//       'linebreak-style': [
-//           'error',
-//           'unix'
-//       ],
-//       quotes: [
-//           'error',
-//           'single'
-//       ],
-//       semi: [
-//           'error',
-//           'never'
-//       ]
-//   }
+  rules: {
+    "no-tabs": 0,
+      // indent: [
+      //     'error',
+      //     'tab'
+      // ],
+      // 'linebreak-style': [
+      //     'error',
+      //     'unix'
+      // ],
+      // quotes: [
+      //     'error',
+      //     'single'
+      // ],
+      // semi: [
+      //     'error',
+      //     'never'
+      // ]
+  }
 };
