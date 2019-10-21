@@ -35,7 +35,7 @@ module.exports = ({
       }
     } catch (err) {
       log.error(err)
-      res.status(400).send(err)
+      res.status(400).send(err.response)
     }
   })
 
@@ -54,7 +54,7 @@ module.exports = ({
       }
     } catch (err) {
       log.error(err)
-      res.status(400).send(err)
+      res.status(400).send(err.response)
     }
   })
 
@@ -80,7 +80,7 @@ module.exports = ({
       }
     } catch (err) {
       log.error(err)
-      res.status(400).send(err)
+      res.status(400).send(err.response)
     }
   })
 

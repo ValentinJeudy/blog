@@ -25,7 +25,7 @@ module.exports = ({
       }
     } catch (err) {
       log.error(err)
-      res.status(400).send(err)
+      res.status(400).send(err.response)
     }
   })
 
@@ -45,6 +45,7 @@ module.exports = ({
         success: false,
         error: err.msg
       })
+      res.status(400).send(err.response)
     }
   })
 
@@ -65,7 +66,7 @@ module.exports = ({
       }
     } catch (err) {
       log.error(err)
-      res.status(401).send(err)
+      res.status(401).send(err.response)
     }
   })
 
