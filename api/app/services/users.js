@@ -14,7 +14,7 @@ module.exports = ({
   }
 
   const create = async ({ username, password }) => {
-    const validation = usersEntity.validate({ username })
+    const validation = usersEntity.validate({ username, password })
 
     if (validation.error) {
       return {

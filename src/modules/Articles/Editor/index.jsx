@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { IconButton, Input } from '@material-ui/core'
-import Icon from '@material-ui/core/Icon'
+import { TextareaAutosize } from '@material-ui/core'
+import showdown from 'showdown'
+// import Icon from '@material-ui/core/Icon'
 import { makeStyles } from '@material-ui/core/styles'
-import './styles.scss'
 
 const useStyles = makeStyles({
   editor: {
@@ -16,17 +16,32 @@ const useStyles = makeStyles({
 })
 
 const Editor = ({ article, setArticle }) => {
+  const [value, setValue] = useState('')
   const classes = useStyles()
+  const converter = new showdown.Converter()
 
-  const handleChange = (value) => {
-    console.log('value ===> ', value)
+  const handleChange = (e) => {
+    setValue(e.target.value)
+    const html = converter.makeHtml(e.target.value)
+    setArticle({
+      ...article,
+      content: html
+    })
   }
+
+  useEffect(() => {
+    const md = converter.makeMarkdown(article.content)
+    console.log('md ', md)
+    setValue(md)
+  }, [])
 
   return (
     <div className='editorContainer'>
-      <Input
+      <TextareaAutosize
         className={classes.text}
-        multiline='true'
+        placeholder='Write your article here ...'
+        value={value}
+        // multiline='true'
         // type='text'
         onChange={handleChange}
       />

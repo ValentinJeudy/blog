@@ -48,13 +48,7 @@ const ArticlePage = (props) => {
     open: false,
     message: ''
   })
-  const [article, setArticle] = useState({
-    _id: '',
-    title: '',
-    imgName: '',
-    content: '',
-    tags: []
-  })
+  const [article, setArticle] = useState(null)
 
   const saveArticle = async () => {
     if (selectedFile) {
@@ -63,7 +57,7 @@ const ArticlePage = (props) => {
       fd.append('article', JSON.stringify(article))
       const headers = { 'Content-Type': 'multipart/form-data' }
 
-      const res = await put('articles', fd, headers)
+      const res = await put('api/articles', fd, headers)
 
       if (res.data.success) {
         setArticle({
@@ -75,14 +69,13 @@ const ArticlePage = (props) => {
           message: 'Document has been saved and file uploaded'
         })
       } else {
-        console.log('res.data ===> ', res.data)
         setSnackbar({
           open: true,
           message: `Errors: ${res.data.errors}`
         })
       }
     } else {
-      const res = await put('articles', { article })
+      const res = await put('api/articles', { article })
 
       if (res.status === 200) {
         setSnackbar({
@@ -139,7 +132,7 @@ const ArticlePage = (props) => {
     <div className='container'>
       <h2>Article page</h2>
       <div className={classes.container}>
-        {user.logged &&
+        {user.logged && article &&
           <EditArticle
             article={article}
             setArticle={setArticle}
@@ -148,7 +141,7 @@ const ArticlePage = (props) => {
             setSelectedFile={setSelectedFile}
             classes={classes}
           />}
-        <Article article={article} classes={classes} />
+        {article && <Article article={article} classes={classes} />}
         {snackbar.open && <SnackBar snackbar={snackbar} setSnackbar={setSnackbar} />}
       </div>
     </div>

@@ -16,6 +16,9 @@ const useStyles = makeStyles({
   li: {
     width: 345,
     margin: '1rem'
+  },
+  cardMedia: {
+    height: '10rem'
   }
 })
 

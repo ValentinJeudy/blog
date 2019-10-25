@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactQuill from 'react-quill'
 // import { makeStyles } from '@material-ui/core/styles'
 import { TextField, Button } from '@material-ui/core'
 
@@ -8,42 +7,7 @@ import { TextField, Button } from '@material-ui/core'
 // import './EditArticle.scss'
 import Editor from '../Editor'
 
-// Quill Editor Options
-// const toolbarOptions = [
-//   [{ header: [1, 2, 3, 4, 5, 6, false] }],
-//   ['blockquote', 'code-block'],
-//   ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-
-//   [{ list: 'ordered' }, { list: 'bullet' }],
-//   // [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-//   [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
-//   // [{ 'direction': 'rtl' }],                         // text direction
-
-//   // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-
-//   // [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-//   [{ align: [] }]
-
-//   // ['clean']
-// ]
-
-// const editorModules = {
-//   toolbar: toolbarOptions
-// }
-
 const EditArticle = ({ article, setArticle, saveArticle, selectedFile, setSelectedFile, classes }) => {
-  // const [selectedFile, setSelectedFile] = useState({})
-
-  // const setContent = (updatedContent, delta, source) => {
-  //   if (source === 'user') {
-  //     const data = {
-  //       ...article,
-  //       content: updatedContent
-  //     }
-  //     setArticle(data)
-  //   }
-  // }
-
   const setTitle = (e) => {
     setArticle({
       ...article,
@@ -102,11 +66,6 @@ const EditArticle = ({ article, setArticle, saveArticle, selectedFile, setSelect
       </div>
       <div>
         <Editor article={article} setArticle={setArticle} />
-        {/* <ReactQuill
-          modules={editorModules}
-          value={article.content}
-          onChange={setContent}
-        /> */}
       </div>
     </div>
   )

@@ -44,6 +44,7 @@ module.exports = ({
     const data = req.body
 
     try {
+      console.log('data ===> ', require('util').inspect(data, { colors: true, depth: 2 }))
       const response = await articlesService.create(data)
 
       if (response.success) {
@@ -62,6 +63,7 @@ module.exports = ({
   router.put('/api/articles', upload.single('image'), async (req, res, next) => {
     try {
       const { article } = req.body
+
       const data = req.file
         ? JSON.parse(article)
         : article

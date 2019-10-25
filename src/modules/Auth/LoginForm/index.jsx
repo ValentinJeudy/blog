@@ -26,7 +26,7 @@ const LoginForm = (props) => {
       msg: ''
     },
     password: {
-      field: 'Shred4618',
+      field: 'toto',
       error: false,
       msg: ''
     }
