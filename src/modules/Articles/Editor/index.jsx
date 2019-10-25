@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { TextareaAutosize } from '@material-ui/core'
 import showdown from 'showdown'
-// import Icon from '@material-ui/core/Icon'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
@@ -11,7 +10,9 @@ const useStyles = makeStyles({
   },
   text: {
     width: '100%',
-    minHeight: '14rem'
+    minHeight: '14rem',
+    fontSize: '1rem',
+    border: 'none'
   }
 })
 
@@ -40,6 +41,7 @@ const Editor = ({ article, setArticle }) => {
       <TextareaAutosize
         className={classes.text}
         placeholder='Write your article here ...'
+        // wrap='off'
         value={value}
         // multiline='true'
         // type='text'
