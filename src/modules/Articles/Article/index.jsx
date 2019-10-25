@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
+import Prism from 'prismjs'
+import 'prismjs/themes/prism-okaidia.css'
 import { apiConfig } from 'src/lib/config'
 
 const Article = ({ article, classes }) => {
@@ -9,6 +11,10 @@ const Article = ({ article, classes }) => {
     backgroundSize: 'cover',
     backgroundPosition: 'center'
   }
+
+  useEffect(() => {
+    Prism.highlightAll()
+  }, [article.content])
 
   return (
     <div className={classes.block}>
