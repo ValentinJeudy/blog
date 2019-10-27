@@ -24,6 +24,7 @@ const Editor = ({ article, setArticle }) => {
   const handleChange = (e) => {
     setValue(e.target.value)
     const html = converter.makeHtml(e.target.value)
+
     setArticle({
       ...article,
       content: html
@@ -32,7 +33,6 @@ const Editor = ({ article, setArticle }) => {
 
   useEffect(() => {
     const md = converter.makeMarkdown(article.content)
-    console.log('md ', md)
     setValue(md)
   }, [])
 

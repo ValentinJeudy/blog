@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import { useHistory, useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { get, put } from 'src/lib/network'
@@ -42,6 +43,8 @@ const useStyles = makeStyles({
 
 const ArticlePage = (props) => {
   const classes = useStyles()
+  const history = useHistory()
+  const { id } = useParams()
   const [user, setUser] = useContext(UserContext)
   const [selectedFile, setSelectedFile] = useState(null)
   const [snackbar, setSnackbar] = useState({
@@ -104,25 +107,33 @@ const ArticlePage = (props) => {
       }
     }
 
-    const setProperArticle = () => {
-      const locationState = props.history.location.state
+    const setProperArticle = async () => {
+      const locationState = history.location.state
 
-      if (props.article) {
-        setArticle({
-          ...props.article
-        })
-      } else if (locationState && locationState.article) {
+      if (locationState && locationState.article) {
         const data = {
           ...locationState.article
         }
-
         setArticle(data)
+
+        const state = { ...locationState }
+        delete state.article
+
+        history.replace({ ...history.location, state })
+      } else {
+        const res = await get('api/article', { id })
+
+        if (res.status === 200) {
+          setArticle(res.data.article)
+        } else {
+          console.log('This article doesn\'t exist')
+        }
       }
     }
 
     const setup = async () => {
       await validUserToken()
-      setProperArticle()
+      await setProperArticle()
     }
 
     setup()

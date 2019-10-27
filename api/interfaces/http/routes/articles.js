@@ -39,6 +39,21 @@ module.exports = ({
     }
   })
 
+  router.get('/api/article/', async (req, res, next) => {
+    try {
+      const response = await articlesService.findOne(req.query.id)
+
+      if (response.success) {
+        res.status(200).send(response)
+      } else {
+        res.status(400).send(response)
+      }
+    } catch (err) {
+      log.error(err)
+      res.status(400).send(err.message)
+    }
+  })
+
   // Create Article
   router.post('/api/articles', async (req, res, next) => {
     const data = req.body

@@ -1,14 +1,14 @@
 const { ObjectID } = require('mongodb')
 
 const repository = (db) => {
-  const UsersDb = db.collection('articles')
+  const ArticlesDb = db.collection('articles')
 
   return {
-    find: () => UsersDb.find().toArray(),
-    findOne: ({ id }) => UsersDb.findOne({ _id: id }),
-    insertOne: (user) => UsersDb.insertOne(user),
-    deleteOne: (id) => UsersDb.deleteOne({ _id: id }),
-    update: (_id, article) => UsersDb.findOneAndUpdate(
+    find: () => ArticlesDb.find().toArray(),
+    findOne: (id) => ArticlesDb.findOne({ _id: ObjectID(id) }),
+    insertOne: (user) => ArticlesDb.insertOne(user),
+    deleteOne: (id) => ArticlesDb.deleteOne({ _id: id }),
+    update: (_id, article) => ArticlesDb.findOneAndUpdate(
       { _id: ObjectID(_id) },
       { $set: { ...article } },
       { returnOriginal: false })

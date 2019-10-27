@@ -21,10 +21,19 @@ module.exports = ({
   }
 
   const findOne = async (id) => {
-    const article = await repository.findOne({ _id: id })
+    const article = await repository.findOne(id)
 
-    log.info(article)
-    return article
+    if (article) {
+      return {
+        success: true,
+        article
+      }
+    } else {
+      return {
+        success: false,
+        errors: ['Article not found']
+      }
+    }
   }
 
   const create = async (data) => {
