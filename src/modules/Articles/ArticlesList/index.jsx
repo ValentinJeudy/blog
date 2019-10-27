@@ -36,6 +36,7 @@ const ArticlesList = () => {
   }
 
   useEffect(() => {
+    console.log('user ===> ', user)
     getArticles()
   }, [])
 
